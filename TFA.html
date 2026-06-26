@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flirt Academy for Tanvesh</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, rgba(47,196,120,0.1) 0%, rgba(79,195,111,0.1) 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        .container {
+            max-width: 680px;
+            margin: 0 auto;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .header h1 {
+            font-size: 28px;
+            font-weight: 500;
+            color: #1a1a1a;
+            margin-bottom: 0.5rem;
+        }
+        .header p {
+            color: #666;
+            font-size: 14px;
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 2rem;
+        }
+        .stat-card {
+            background: white;
+            border: 0.5px solid #ddd;
+            border-radius: 12px;
+            padding: 0.75rem;
+            text-align: center;
+        }
+        .stat-label {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 6px;
+        }
+        .stat-value {
+            font-size: 20px;
+            font-weight: 500;
+            color: #0F6E56;
+        }
+        .level-buttons {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 2rem;
+        }
+        .level-btn {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        .level-btn.active {
+            border-color: #0F6E56;
+            color: #0F6E56;
+        }
+        .action-btn {
+            width: 100%;
+            padding: 12px;
+            background: #f5f5f5;
+            border: 0.5px solid #ddd;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 500;
+            color: #1a1a1a;
+            margin-bottom: 12px;
+            transition: all 0.2s;
+        }
+        .action-btn:hover {
+            background: #ececec;
+        }
+        .content-box {
+            background: white;
+            border: 2px solid #0F6E56;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            display: none;
+        }
+        .content-box.active {
+            display: block;
+        }
+        .content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 8px;
+        }
+        .category {
+            color: #0F6E56;
+            font-weight: 500;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+        .content-text {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #1a1a1a;
+        }
+        .save-btn {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 0;
+            margin-left: 12px;
+        }
+        .quote-box {
+            background: #f5f5f5;
+            border: 0.5px solid #ddd;
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .quote-box p {
+            margin: 0;
+        }
+        .quote-label {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+        .quote-text {
+            font-size: 15px;
+            color: #1a1a1a;
+            line-height: 1.5;
+        }
+        .favorites-box {
+            background: white;
+            border: 0.5px solid #ddd;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            display: none;
+        }
+        .favorites-box.active {
+            display: block;
+        }
+        .favorites-box h3 {
+            font-size: 16px;
+            font-weight: 500;
+            color: #1a1a1a;
+            margin-bottom: 12px;
+        }
+        .favorites-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        .favorite-item {
+            padding: 12px;
+            background: #f5f5f5;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #1a1a1a;
+            word-break: break-word;
+        }
+        .clear-btn {
+            width: 100%;
+            padding: 8px;
+            background: #f5f5f5;
+            border: 0.5px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            color: #666;
+        }
+        .penalty-box {
+            background: rgba(79, 195, 111, 0.1);
+            border: 1px solid #639922;
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+        .penalty-box p {
+            margin: 0;
+        }
+        .penalty-label {
+            font-size: 13px;
+            font-weight: 500;
+            color: #3B6D11;
+            margin-bottom: 8px;
+        }
+        .penalty-text {
+            font-size: 14px;
+            color: #1a1a1a;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Flirt Academy for Tanvesh</h1>
+            <p>Brought to you by the Yuhi crew | Est. June 4, 2024 💚</p>
+        </div>
+
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-label">Streak</div>
+                <div class="stat-value">🔥 7 days</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Favorites</div>
+                <div class="stat-value" id="favCount">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Level</div>
+                <div class="stat-value" id="currentLevel">Beginner</div>
+            </div>
+        </div>
+
+        <div class="level-buttons">
+            <button class="level-btn active" id="beginnerBtn" onclick="setLevel('beginner')">Beginner</button>
+            <button class="level-btn" id="advancedBtn" onclick="setLevel('advanced')">Advanced</button>
+        </div>
+
+        <button class="action-btn" onclick="generateTip()">✨ Get Daily Tip</button>
+        <div class="content-box" id="tipBox">
+            <div class="content-header">
+                <div>
+                    <div class="category" id="tipCategory">Tip</div>
+                    <div class="content-text" id="tipText">Your tip appears here</div>
+                </div>
+                <button class="save-btn" id="tipSaveBtn" onclick="saveFavorite('tip')">🤍</button>
+            </div>
+        </div>
+
+        <button class="action-btn" onclick="generateLine()">😄 Get Pickup Line</button>
+        <div class="content-box" id="lineBox">
+            <div class="content-header">
+                <div>
+                    <div class="category" id="lineType">Line</div>
+                    <div class="content-text" id="lineText">Your pickup line appears here</div>
+                </div>
+                <button class="save-btn" id="lineSaveBtn" onclick="saveFavorite('line')">🤍</button>
+            </div>
+        </div>
+
+        <button class="action-btn" onclick="generateCompliment()">💚 Generate Compliment</button>
+        <div class="content-box" id="complimentBox">
+            <div class="content-header">
+                <div>
+                    <div class="content-text" id="complimentText">Your compliment appears here</div>
+                </div>
+                <button class="save-btn" id="complimentSaveBtn" onclick="saveFavorite('compliment')">🤍</button>
+            </div>
+        </div>
+
+        <button class="action-btn" onclick="generateScenario()">🎭 Scenario Challenge</button>
+        <div class="content-box" id="scenarioBox">
+            <div class="content-text" id="scenarioText">Your scenario appears here</div>
+            <p style="margin: 12px 0 0 0; font-size: 13px; color: #3B6D11; font-weight: 500; font-style: italic;" id="scenarioHint">*suggested response below*</p>
+        </div>
+
+        <div class="quote-box">
+            <div class="quote-label">💬 Remember:</div>
+            <div class="quote-text" id="quote">You've got this!</div>
+        </div>
+
+        <div class="favorites-box" id="favoritesBox">
+            <h3>Your Favorites ❤️</h3>
+            <div class="favorites-list" id="favoritesList"></div>
+            <button class="clear-btn" onclick="clearFavorites()">Clear all</button>
+        </div>
+
+        <div class="penalty-box">
+            <p class="penalty-label">🚫 No practice today?</p>
+            <p class="penalty-text">Penalty: You owe her ☕ Ettara Coffee!</p>
+        </div>
+    </div>
+
+    <script>
+        let currentLevel = 'beginner';
+        let favorites = [];
+        let currentTip = null;
+        let currentLine = null;
+        let currentCompliment = null;
+
+        const beginnerTips = [
+            { text: "When she talks, put your phone away. Full attention = maximum charm.", category: "🎯 Presence" },
+            { text: "Notice when she's wearing something new and compliment it specifically.", category: "👀 Details" },
+            { text: "Laugh at her jokes—genuinely. It makes her feel heard.", category: "😆 Connection" },
+            { text: "Ask about her day and actually listen. People love being heard.", category: "👂 Listening" },
+            { text: "Smile genuinely. A real smile is contagious.", category: "😊 Warmth" },
+        ];
+
+        const advancedTips = [
+            { text: "Command the room when she's watching—own it like you do at work. She loves that energy.", category: "💪 Confidence" },
+            { text: "Use playful teasing about her light teasing about your fashion choices—lean into inside jokes.", category: "🎭 Banter" },
+            { text: "Spontaneous plans > perfect plans. Suggest something random and exciting.", category: "✨ Spontaneity" },
+            { text: "Create moments. Remember what matters to her and show up for it unexpectedly.", category: "💝 Thoughtfulness" },
+            { text: "Compliment her intelligence and ambition, not just appearance. That's real attraction.", category: "🧠 Intelligence" },
+            { text: "Take charge of decisions sometimes. Show her you've got a vision.", category: "🎯 Leadership" },
+        ];
+
+        const beginnerLines = [
+            { text: "Are you a magician? Because whenever I look at you, everyone else disappears.", type: "✨ Smooth" },
+            { text: "Do you believe in love at first sight, or should I walk by again?", type: "😄 Classic" },
+            { text: "I'm not a photographer, but I can picture us together.", type: "🤦 Cheesy" },
+        ];
+
+        const advancedLines = [
+            { text: "I was trying to think of a clever line, but honestly, you're just making me forget how to talk.", type: "✨ Smooth" },
+            { text: "You know what's funny? I came here with no plan, but I think I just found it.", type: "✨ Smooth" },
+            { text: "I'd ask for your number, but I have a feeling it's not nearly as interesting as your mind.", type: "💡 Witty" },
+        ];
+
+        const customCompliments = [
+            "When you command the room like you do at work—that energy is incredibly attractive.",
+            "You look absolutely commanding in that black shirt. Just saying.",
+            "I love how confident you are. It's one of my favorite things about you.",
+            "Your intelligence is honestly one of the sexiest things about you.",
+            "The way you take charge and own a conversation? That's hot.",
+            "You know what I love? When you just... be yourself. Unapologetically you.",
+            "That black shirt + the way you carry yourself = I'm sold all over again.",
+            "You make me laugh more than anyone else. That's flirting too.",
+            "I love that you're ambitious. You going after what you want is attractive as hell.",
+            "Remember that work trip to Pune? You were incredible that whole time.",
+        ];
+
+        const scenarios = [
+            { text: "She catches you staring at her across the room.", hint: "Smile, hold her gaze for a beat, then give that signature confident shrug." },
+            { text: "She's teasing you about your pants again (loose and straight, apparently).", hint: "Laugh and say something like, 'Okay, but you love how I look' with that half-smile." },
+            { text: "She mentions something she's nervous about.", hint: "Lean in and say, 'You're going to crush it. I believe in you.' Mean it." },
+            { text: "You run into her unexpectedly at the office.", hint: "'Hey—perfect timing. I was just thinking about [something personal]...'" },
+            { text: "She's clearly having a rough day.", hint: "Drop everything and ask, 'Want to talk about it?' Then actually listen." },
+            { text: "She's laughing at something someone else said.", hint: "Add to the joke and make sure your humor includes her. Make her laugh harder." },
+        ];
+
+        const quotes = [
+            "She married you. You've already got the charm.",
+            "Just be present. That's enough.",
+            "Remember Pune? You were perfect then.",
+            "Confidence + genuine interest = unstoppable.",
+            "She loves when you command a room. Own it.",
+        ];
+
+        function setLevel(level) {
+            currentLevel = level;
+            document.getElementById('currentLevel').textContent = level === 'beginner' ? 'Beginner' : 'Advanced';
+            document.getElementById('beginnerBtn').classList.toggle('active', level === 'beginner');
+            document.getElementById('advancedBtn').classList.toggle('active', level === 'advanced');
+        }
+
+        function generateTip() {
+            const tips = currentLevel === 'beginner' ? beginnerTips : advancedTips;
+            const tip = tips[Math.floor(Math.random() * tips.length)];
+            currentTip = { type: 'tip', ...tip };
+            document.getElementById('tipText').textContent = tip.text;
+            document.getElementById('tipCategory').textContent = tip.category;
+            document.getElementById('tipBox').classList.add('active');
+            updateSaveButton('tipSaveBtn');
+        }
+
+        function generateLine() {
+            const lines = currentLevel === 'beginner' ? beginnerLines : advancedLines;
+            const line = lines[Math.floor(Math.random() * lines.length)];
+            currentLine = { type: 'line', ...line };
+            document.getElementById('lineText').textContent = line.text;
+            document.getElementById('lineType').textContent = line.type;
+            document.getElementById('lineBox').classList.add('active');
+            updateSaveButton('lineSaveBtn');
+        }
+
+        function generateCompliment() {
+            const compliment = customCompliments[Math.floor(Math.random() * customCompliments.length)];
+            currentCompliment = { type: 'compliment', text: compliment };
+            document.getElementById('complimentText').textContent = compliment;
+            document.getElementById('complimentBox').classList.add('active');
+            updateSaveButton('complimentSaveBtn');
+        }
+
+        function generateScenario() {
+            const scenario = scenarios[Math.floor(Math.random() * scenarios.length)];
+            document.getElementById('scenarioText').textContent = scenario.text;
+            document.getElementById('scenarioHint').textContent = scenario.hint;
+            document.getElementById('scenarioBox').classList.add('active');
+        }
+
+        function saveFavorite(type) {
+            let item = null;
+            let btnId = '';
+            if (type === 'tip' && currentTip) { item = currentTip; btnId = 'tipSaveBtn'; }
+            else if (type === 'line' && currentLine) { item = currentLine; btnId = 'lineSaveBtn'; }
+            else if (type === 'compliment' && currentCompliment) { item = currentCompliment; btnId = 'complimentSaveBtn'; }
+            
+            if (item) {
+                favorites.push(item);
+                document.getElementById(btnId).textContent = '❤️';
+                updateFavoritesDisplay();
+            }
+        }
+
+        function updateSaveButton(btnId) {
+            document.getElementById(btnId).textContent = '🤍';
+        }
+
+        function updateFavoritesDisplay() {
+            document.getElementById('favCount').textContent = favorites.length;
+            if (favorites.length > 0) {
+                document.getElementById('favoritesBox').classList.add('active');
+                const list = document.getElementById('favoritesList');
+                list.innerHTML = '';
+                favorites.forEach((fav) => {
+                    const div = document.createElement('div');
+                    div.className = 'favorite-item';
+                    div.textContent = fav.text;
+                    list.appendChild(div);
+                });
+            }
+        }
+
+        function clearFavorites() {
+            favorites = [];
+            updateFavoritesDisplay();
+            document.getElementById('favoritesBox').classList.remove('active');
+        }
+
+        window.onload = function() {
+            const quote = quotes[Math.floor(Math.random() * quotes.length)];
+            document.getElementById('quote').textContent = quote;
+            setLevel('beginner');
+        };
+    </script>
+</body>
+</html>
